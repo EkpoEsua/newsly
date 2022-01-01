@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Home Page{% endblock title %}
+
+{% block content %}
+
+<div class="container-sm pt-5">
+    
+    <form action="" method="get" class="gy-2 gx-3 align-items-center" >
+        {{ form.as_p }}
+        <button type="submit" class="center btn btn-primary">Filter</button>
+        <hr>
+    </form>
+
+    {% if not page_obj %}
+        <p class="display-5 text-center"> No News Items </p>
+    {% endif %}
+
+    {% for news_item in page_obj %}
+        {% if not news_item.deleted %}
+        <div class="row">
+            <p class="col display-10"> <a class="btn btn-info" href=""> {{ news_item.type|title }} : {% if news_item.hacker_news_id == -1 %} {{ news_item.newsly_news_id }} From Newsly {% else %} {{ news_item.hacker_news_id }} From Hacker News {% endif %} </a> </p>
+            <p class="col display-10 text-end" > {{news_item.posix_time_to_datetime_object|date:"D d M Y"}} </p>
+        </div>
+            <p class="h5"> {{ news_item.title }} </p>
+            <p class="display-10"> {{ news_item.text|safe }} </p>
+        <div class="row">
+            {% if news_item.url %}
+                <p class="col"> <a class="btn btn-primary" href="{{news_item.url}}">Link</a>  </p>
+            {% endif %}
+            <p class="col display-10 text-end">by <em> {{news_item.by}}</em> </p>
+        </div>
+            <hr>
+        {% endif %}
+    {% endfor %}
+</div>
+
+{% endblock content %}
