@@ -60,13 +60,13 @@ def load_items():
         print(e)
         return False
     if max_id:
-        star_id = max_id + 1
+        start_id = max_id + 1
     else:
-        star_id = max_item_id - 100
+        start_id = max_item_id - 100
 
-    for item_id in range(star_id, max_item_id + 1):
+    for item_id in range(start_id, max_item_id + 1):
         out_come = save_item(get_item(item_id))
-        print(f"Progress: {item_id} / {max_item_id-star_id} ")
+        print(f"Progress: ({item_id-start_id} / {max_item_id-start_id}) ")
     return True
 
 
