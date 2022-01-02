@@ -1,5 +1,6 @@
 from django.db import models
 import datetime
+from django.urls import reverse
 
 
 def default_array():
@@ -56,31 +57,8 @@ class Item(models.Model):
 
     def posix_time_to_datetime_object(self):
         return datetime.datetime.fromtimestamp(self.time)
+    
+    def get_absolute_url(self):
+        return reverse("news-detail", kwargs={"pk": self.pk})
+    
 
-
-# class NewslyItem(models.Model):
-#     deleted = models.BooleanField(default=False, blank=True)
-#     type = models.CharField(max_length=50, choices=TYPE_CHOICES)
-#     by = models.CharField(max_length=300, default="", blank=True)
-#     time = models.BigIntegerField(default=-1, blank=True)
-#     dead = models.BooleanField(default=False, blank=True)
-#     kids = models.JSONField(default=default_array, blank=True)
-#     parts = models.JSONField(default=default_array, blank=True)
-#     text = models.TextField(default="", blank=True)
-#     url = models.URLField(default="", blank=True)
-#     title = models.TextField(default="", blank=True)
-#     descendants = models.IntegerField(default=-1, blank=True)
-#     score = models.IntegerField(default=-1, blank=True)
-#     parent = models.BigIntegerField(default=-1, blank=True)
-
-#     class Meta:
-#         ordering = ["-time"]
-#         indexes = [
-#             models.Index(
-#                 fields=["id", "type", "-time", "title", "text"],
-#                 name="newsly_table_indexes",
-#             )
-#         ]
-
-#     def posix_time_to_datetime_object(self):
-#         return datetime.datetime.fromtimestamp(self.time)

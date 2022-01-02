@@ -5,6 +5,7 @@ from item import schema
 
 urlpatterns = [
     path("", views.NewsListView.as_view(), name="list-news"),
+    path("item/<int:pk>/", views.NewsDetailView.as_view(), name="news-detail"),
     path("api/item/", views.NewsItemListView.as_view(), name="list-items"),
     path("api/item/create/", views.NewsItemCreateView.as_view(), name="create-item"),
     path(

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}{{ item.type|title }} : {% if item.hacker_news_id == -1 %} {{ item.newsly_news_id }} From Newsly {% else %} {{ item.hacker_news_id }} From Hacker News {% endif %} {% endblock title %}
+
+{% block content %}
+
+<div class="container-sm pt-5">
+    <div class="row">
+        <p class="col display-10 text-end" > {{item.posix_time_to_datetime_object|date:"D d M Y"}} </p>
+    </div>
+        <p class="h5"> {{ item.title }} </p>
+        <p></p>
+        <p class="display-10"> {{ item.text|safe }} </p>
+    <div class="row">
+        {% if item.url %}
+            <p class="col"> <a class="btn btn-primary" href="{{item.url}}">Link</a>  </p>
+        {% endif %}
+        <p class="col display-10 text-end">by <em> {{item.by}}</em> </p>
+        <hr>
+    </div>
+    <div class="row">
+        {% for kid in item.kids %}
+        <div>
+            {% include "item/component.html" %}
+        </div>
+        {% endfor %}
+    </div>
+    
+</div>
+
+{% endblock content %}

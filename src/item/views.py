@@ -2,6 +2,7 @@ from django import conf
 from django.db.models.query import QuerySet
 from django.db.models import Q
 from django.views import generic
+from item import models
 from item.models import Item
 from item.forms import FilterForm
 from rest_framework import generics
@@ -13,6 +14,26 @@ from item.serializers import (
 from django.db.models import QuerySet
 from item import filters
 from rest_framework.permissions import exceptions
+from load import save_item, get_item
+
+
+class NewsDetailView(generic.DetailView):
+    model = Item
+    template_name = "item/detail.html"        
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        parent: Item = context["item"]
+        def load_descendants(parent: Item):
+            if len(parent.kids) == 0:
+                return
+            for index, kid in enumerate(parent.kids):
+                # save_item(get_item(kid))
+                kid_item = Item.objects.get(hacker_news_id=kid)
+                parent.kids[index] = kid_item
+                load_descendants(kid_item)
+        load_descendants(parent)
+        return context
 
 
 class NewsListView(generic.ListView):

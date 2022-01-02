@@ -1,0 +1,17 @@
+<div class="row">
+    <p class="col display-10 text-end" > {{kid.posix_time_to_datetime_object|date:"D d M Y"}} </p>
+</div>
+    <p class="h5"> {{ kid.title }} </p>
+    <p></p>
+    <p class="display-10"> {{ kid.text|safe }} </p>
+<div class="row">
+    {% if kid.url %}
+        <p class="col"> <a class="btn btn-primary" href="{{kid.url}}">Link</a>  </p>
+    {% endif %}
+    <p class="col display-10 text-end">by <em> {{kid.by}}</em> </p>
+</div>
+<div class="row">
+    {% for kid in kid.kids %}
+        <p> <span>----</span> {% include "item/component.html" %} </p>
+    {% endfor %}
+</div>
