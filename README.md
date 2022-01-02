@@ -15,6 +15,7 @@ pip install -r requirements.txt
 ```
 cd src/
 python manage.py migrate
+python load.py &
 ```
 
 # Setup and start redis server
@@ -43,5 +44,8 @@ celery -A newsly beat &
 python manage.py runserver
 ```
 
+Open the webapp on a browser:
+[127.0.0.1:8000](127.0.0.1:8000)
+
 # Docs/Guide for the api
-[127.0.0.1:800/api/doc/](127.0.0.1:800/api/doc/)
+[127.0.0.1:8000/api/doc/](127.0.0.1:8000/api/doc/)
