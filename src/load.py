@@ -66,7 +66,7 @@ def load_items():
 
     for item_id in range(star_id, max_item_id + 1):
         out_come = save_item(get_item(item_id))
-        print(out_come)
+        print(f"Progress: {item_id} / {max_item_id-star_id} ")
     return True
 
 
